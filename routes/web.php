@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/notes', 'NoteController@index')->name('notes.index');
+Route::get('/notes/show/{id}', 'NoteController@show')->name('notes.show');
+Route::get('/notes/delete/{id}', 'NoteController@delete')->name('notes.delete');
