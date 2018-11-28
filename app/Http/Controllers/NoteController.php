@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Services\NoteService;
 use Illuminate\Http\Request;
 
+/**
+ * Class NoteController
+ * @package App\Http\Controllers
+ */
 class NoteController extends Controller
 {
     /**
@@ -45,10 +49,25 @@ class NoteController extends Controller
         return view('createNote');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function delete(int $id)
     {
         $this->noteService->delete($id);
 
         return redirect('/notes');
+    }
+
+
+    public function update()
+    {
+        dd('update note');
+    }
+
+    public function store()
+    {
+        dd('save new note');
     }
 }
