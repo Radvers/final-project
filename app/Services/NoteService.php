@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: php
- * Date: 28.11.18
- * Time: 18:01
- */
 
 namespace App\Services;
 
@@ -49,10 +43,12 @@ class NoteService
         return $this->note->ByField('user_id', Auth::id())->get();
     }
 
+    /**
+     * @param int $id
+     */
     public function delete(int $id)
     {
         $this->note->ByField('id', $id)->delete();
     }
-
 
 }

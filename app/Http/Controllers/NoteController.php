@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
 use App\Services\NoteService;
 use Illuminate\Http\Request;
 
@@ -16,12 +17,15 @@ class NoteController extends Controller
      */
     private $noteService;
 
+    private $color;
+
     /**
      * HomeController constructor.
      * @param NoteService $noteService
      */
-    public function __construct(NoteService $noteService)
+    public function __construct(NoteService $noteService, Color $color)
     {
+        $this->color =$color;
         $this->noteService = $noteService;
         $this->middleware('auth');
     }
@@ -34,8 +38,9 @@ class NoteController extends Controller
     public function index()
     {
         $notes = $this->noteService->getAllUserNotes();
+        $colors = $this->color->get();
 
-        return view('notes', ['notes' => $notes]);
+        return view('notes', ['notes' => $notes, 'colors' => $colors]);
     }
 
     /**
@@ -61,9 +66,9 @@ class NoteController extends Controller
     }
 
 
-    public function update()
+    public function update(Request $request)
     {
-        dd('update note');
+        dd($request->only(['title','body','id']));
     }
 
     public function store()
