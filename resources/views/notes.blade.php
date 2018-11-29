@@ -7,7 +7,7 @@
            <div class="card {{ $note->color->class }} mb-6" style="max-width: 22rem; margin-left: 1rem; margin-bottom: 1rem;">
                <div class="card-header">{{ $note->title }}</div>
                <div class="card-body">
-                   <h5 class="card-title">Primary card title</h5>
+                   {{--<h5 class="card-title">Tags</h5>--}}
                    <p class="card-text">{{ $note->body }}</p>
                    <div class="btn-group">
                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,6 +30,15 @@
            </div>
         @endforeach
     </div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="modal fade" id="updateNote" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -49,7 +58,7 @@
                         </div>
                         <div class="form-group">
                             <label for="color">Example select</label>
-                            <select class="form-control" id="color" name="color">
+                            <select class="form-control" id="color" name="color_id">
                                 @foreach($colors as $color)
                                     <option value="{{ $color->id }}">{{ $color->name }}</option>
                                 @endforeach
@@ -60,6 +69,7 @@
                             <textarea class="form-control" name="body" id="body"></textarea>
                         </div>
                         <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="unexpected" value="fake" id="unexpected">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -75,7 +85,7 @@
                 $("#title").val($(this).attr('data-title'));
                 $("#body").val($(this).attr('data-body'));
                 $("#id").val($(this).attr('data-id'));
-                $("[name=color]").val($(this).attr('data-color'));
+                $("[name=color_id]").val($(this).attr('data-color'));
             });
         });
     </script>

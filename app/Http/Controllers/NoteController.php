@@ -17,11 +17,15 @@ class NoteController extends Controller
      */
     private $noteService;
 
+    /**
+     * @var Color
+     */
     private $color;
 
     /**
-     * HomeController constructor.
+     * NoteController constructor.
      * @param NoteService $noteService
+     * @param Color $color
      */
     public function __construct(NoteService $noteService, Color $color)
     {
@@ -68,7 +72,16 @@ class NoteController extends Controller
 
     public function update(Request $request)
     {
-        dd($request->only(['title','body','id']));
+
+        $data = $request->validate([
+            'title' => 'required|min:4|max:255',
+            'body' => 'required|min:4',
+            'id' => 'required|digits_between:1,10',
+            'color_id' => 'required|digits_between:1,10'
+        ]);
+        $this->noteService->update($data);
+
+        return redirect()->back();
     }
 
     public function store()

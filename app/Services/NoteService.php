@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Models\Note;
+use App\Services\Auth\AuthInterface;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -18,12 +19,19 @@ class NoteService
     private $note;
 
     /**
+     * @var AuthInterface
+     */
+    private $auth;
+
+    /**
      * NoteService constructor.
      * @param Note $note
+     * @param AuthInterface $auth
      */
-    public function __construct(Note $note)
+    public function __construct(Note $note, AuthInterface $auth)
     {
         $this->note = $note;
+        $this->auth = $auth;
     }
 
     /**
@@ -40,7 +48,7 @@ class NoteService
      */
     public function getAllUserNotes()
     {
-        return $this->note->ByField('user_id', Auth::id())->get();
+        return $this->note->ByField('user_id', $this->auth->getUser()->id)->get();
     }
 
     /**
@@ -49,6 +57,15 @@ class NoteService
     public function delete(int $id)
     {
         $this->note->ByField('id', $id)->delete();
+    }
+
+    /**
+     * @param array $data
+     */
+    public function update(array $data)
+    {
+        $data['user_id'] = $this->auth->getUser()->id;
+        $this->note->ByField('id', $data['id'])->update($data);
     }
 
 }
