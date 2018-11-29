@@ -81,7 +81,8 @@ class NoteController extends Controller
             'title' => 'required|min:4|max:255',
             'body' => 'required|min:4',
             'id' => 'required|digits_between:1,10',
-            'color_id' => 'required|digits_between:1,10'
+            'color_id' => 'required|digits_between:1,10',
+            'share' => 'boolean'
         ]);
         $this->noteService->update($data);
 
@@ -100,9 +101,9 @@ class NoteController extends Controller
             'title' => 'required|min:4|max:255',
             'body' => 'required|min:4',
             'color_id' => 'required|integer',
-            'days_to_delete' => 'required|integer'
+            'days_to_delete' => 'required|integer',
+            'share' => 'boolean'
         ]);
-
         $this->noteService->update($data);
 
         return redirect('/notes');
@@ -118,7 +119,8 @@ class NoteController extends Controller
             'title' => 'required|min:4|max:255',
             'body' => 'required|min:4',
             'color_id' => 'required|integer',
-            'days_to_delete' => 'required|integer'
+            'days_to_delete' => 'required|integer',
+            'share' => 'boolean'
         ]);
         $this->noteService->store($data);
 

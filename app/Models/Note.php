@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class Note
@@ -20,7 +21,8 @@ class Note extends Model
         'title',
         'color_id',
         'body',
-        'days_to_delete'
+        'days_to_delete',
+        'share'
     ];
 
     /**
@@ -48,5 +50,13 @@ class Note extends Model
     public function scopeByField(Builder $query, string $field, $value)
     {
         return $this->where($field, $value)->with('color');
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormattedShareAttribute()
+    {
+        return URL::to('/') . '/share/' . $this->id;
     }
 }
