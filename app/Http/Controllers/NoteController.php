@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Services\NoteService;
 use Illuminate\Http\Request;
 
+/**
+ * Class NoteController
+ * @package App\Http\Controllers
+ */
 class NoteController extends Controller
 {
     /**
@@ -12,8 +16,9 @@ class NoteController extends Controller
      */
     private $noteService;
 
+
     /**
-     * HomeController constructor.
+     * NoteController constructor.
      * @param NoteService $noteService
      */
     public function __construct(NoteService $noteService)
@@ -31,23 +36,88 @@ class NoteController extends Controller
     {
         $notes = $this->noteService->getAllUserNotes();
 
-        return view('notes', ['notes' => $notes]);
+        return view('note-list', ['notes' => $notes]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('createNote');
     }
 
     /**
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(int $id)
+    public function update(int $id)
     {
-        dd($this->noteService->getById($id));
+        $note = $this->noteService->getById($id);
 
-        return view('createNote');
+        return view('updateNote', ['note' => $note]);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete(int $id)
     {
         $this->noteService->delete($id);
+
+        return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function quickEdit(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required|min:4|max:255',
+            'body' => 'required|min:4',
+            'id' => 'required|digits_between:1,10',
+            'color_id' => 'required|digits_between:1,10'
+        ]);
+        $this->noteService->update($data);
+
+        return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function fullEdit(Request $request)
+    {
+        $data = $request->validate([
+            'id' => 'required|integer',
+            'title' => 'required|min:4|max:255',
+            'body' => 'required|min:4',
+            'color_id' => 'required|integer',
+            'days_to_delete' => 'required|integer'
+        ]);
+
+        $this->noteService->update($data);
+
+        return redirect('/notes');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required|min:4|max:255',
+            'body' => 'required|min:4',
+            'color_id' => 'required|integer',
+            'days_to_delete' => 'required|integer'
+        ]);
+        $this->noteService->store($data);
 
         return redirect('/notes');
     }

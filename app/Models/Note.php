@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: php
- * Date: 28.11.18
- * Time: 17:44
- */
 
 namespace App\Models;
 
@@ -24,6 +18,7 @@ class Note extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'color_id',
         'body',
         'days_to_delete'
     ];
@@ -31,9 +26,17 @@ class Note extends Model
     /**
      * @return BelongsTo
      */
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
     }
 
     /**
@@ -44,6 +47,6 @@ class Note extends Model
      */
     public function scopeByField(Builder $query, string $field, $value)
     {
-        return $this->where($field, $value);
+        return $this->where($field, $value)->with('color');
     }
 }
