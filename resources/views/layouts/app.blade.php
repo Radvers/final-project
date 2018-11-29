@@ -33,7 +33,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <form action="{{ route('search') }}" method="post" class="form-inline" style="margin: 15px 0 0;">
+                            {{csrf_field()}}
+                            <div class="input-group">
+                                <input type="text" name="query" class="form-control" placeholder="{{__('Search')}}..." value="{!! request()->input('query') !!}">
+                                <span class="input-group-btn">
+                        <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i> {{__('Search')}}</button>
+                    </span>
+                            </div>
+                        </form>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
