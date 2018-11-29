@@ -4,7 +4,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <div class="card-group">
         @foreach($notes as $note)
-           <div class="card {{ $note->color->class }} mb-6" style="max-width: 22rem; margin-left: 1rem; margin-bottom: 1rem;">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="card {{ $note->color->class }} mb-6" style="max-width: 22rem; margin-bottom: 1rem;">
                <div class="card-header">{{ $note->title }}</div>
                <div class="card-body">
                    {{--<h5 class="card-title">Tags</h5>--}}
@@ -14,7 +15,7 @@
                            more
                        </button>
                        <div class="dropdown-menu dropdown-menu-right">
-                           <a href="{{  route('notes.delete', ['id '=> $note->id]) }}" class="dropdown-item btn">Delete</a>
+                           <a href="{{  route('notes.delete', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Delete') }}</a>
                            <button type="button"
                                    class="dropdown-item update-note"
                                    data-toggle="modal"
@@ -22,11 +23,12 @@
                                    data-id="{{ $note->id }}"
                                    data-color="{{ $note->color_id }}"
                                    data-title="{{ $note->title }}"
-                                   data-body="{{ $note->body }}">Update</button>
-                           <button class="dropdown-item" type="button">Something else here</button>
+                                   data-body="{{ $note->body }}">{{ __('Quick Edit') }}</button>
+                           <a href="{{  route('notes.update', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Full edit') }}</a>
                        </div>
                    </div>
                </div>
+           </div>
            </div>
         @endforeach
     </div>
@@ -49,7 +51,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('notes.update') }}"  method="post">
+                <form action="{{ route('notes.quickEdit') }}"  method="post">
                     <div class="modal-body">
                         @csrf
                         <div class="form-group">
@@ -69,7 +71,6 @@
                             <textarea class="form-control" name="body" id="body"></textarea>
                         </div>
                         <input type="hidden" name="id" id="id">
-                        <input type="hidden" name="unexpected" value="fake" id="unexpected">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

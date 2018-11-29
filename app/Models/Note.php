@@ -18,6 +18,7 @@ class Note extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'color_id',
         'body',
         'days_to_delete'
     ];

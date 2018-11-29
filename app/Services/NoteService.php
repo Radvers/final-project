@@ -5,7 +5,6 @@ namespace App\Services;
 
 use App\Models\Note;
 use App\Services\Auth\AuthInterface;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class NoteService
@@ -40,7 +39,7 @@ class NoteService
      */
     public function getById(int $id)
     {
-        return $this->note->ByField('id', $id)->get();
+        return $this->note->ByField('id', $id)->first();
     }
 
     /**
@@ -65,7 +64,27 @@ class NoteService
     public function update(array $data)
     {
         $data['user_id'] = $this->auth->getUser()->id;
+        //dd($data);
         $this->note->ByField('id', $data['id'])->update($data);
+    }
+
+    /**
+     * @param array $data
+     */
+    public function store(array $data)
+    {
+        $note = $this->getNewNote();
+        $data['user_id'] = $this->auth->getUser()->id;
+        $note->fill($data);
+        $note->save();
+    }
+
+    /**
+     * @return Note
+     */
+    private function getNewNote()
+    {
+        return New Note();
     }
 
 }
