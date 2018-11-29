@@ -29,7 +29,6 @@ class NoteController extends Controller
 
     /**
      * Show all user notes.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -40,6 +39,7 @@ class NoteController extends Controller
     }
 
     /**
+     * page with create form
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
@@ -48,6 +48,7 @@ class NoteController extends Controller
     }
 
     /**
+     * page with update form
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -70,6 +71,7 @@ class NoteController extends Controller
     }
 
     /**
+     * Edit in modal window
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -87,6 +89,7 @@ class NoteController extends Controller
     }
 
     /**
+     * Edit at update page
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */

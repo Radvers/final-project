@@ -2,36 +2,40 @@
 
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <div class="card-group">
-        @foreach($notes as $note)
-            <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="card {{ $note->color->class }} mb-6" style="max-width: 22rem; margin-bottom: 1rem;">
-               <div class="card-header">{{ $note->title }}</div>
-               <div class="card-body">
-                   {{--<h5 class="card-title">Tags</h5>--}}
-                   <p class="card-text">{{ $note->body }}</p>
-                   <div class="btn-group">
-                       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           more
-                       </button>
-                       <div class="dropdown-menu dropdown-menu-right">
-                           <a href="{{  route('notes.delete', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Delete') }}</a>
-                           <button type="button"
-                                   class="dropdown-item update-note"
-                                   data-toggle="modal"
-                                   data-target="#updateNote"
-                                   data-id="{{ $note->id }}"
-                                   data-color="{{ $note->color_id }}"
-                                   data-title="{{ $note->title }}"
-                                   data-body="{{ $note->body }}">{{ __('Quick Edit') }}</button>
-                           <a href="{{  route('notes.update', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Full edit') }}</a>
+    @if($notes->count())
+        <div class="card-group">
+            @foreach($notes as $note)
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="card {{ $note->color->class }} mb-6" style="max-width: 22rem; margin-bottom: 1rem;">
+                   <div class="card-header">{{ $note->title }}</div>
+                   <div class="card-body">
+                       {{--<h5 class="card-title">Tags</h5>--}}
+                       <p class="card-text">{{ $note->body }}</p>
+                       <div class="btn-group">
+                           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               more
+                           </button>
+                           <div class="dropdown-menu dropdown-menu-right">
+                               <a href="{{  route('notes.delete', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Delete') }}</a>
+                               <button type="button"
+                                       class="dropdown-item update-note"
+                                       data-toggle="modal"
+                                       data-target="#updateNote"
+                                       data-id="{{ $note->id }}"
+                                       data-color="{{ $note->color_id }}"
+                                       data-title="{{ $note->title }}"
+                                       data-body="{{ $note->body }}">{{ __('Quick Edit') }}</button>
+                               <a href="{{  route('notes.update', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Full edit') }}</a>
+                           </div>
                        </div>
                    </div>
                </div>
-           </div>
-           </div>
-        @endforeach
-    </div>
+               </div>
+            @endforeach
+        </div>
+    @else
+        <p class="alert alert-warning">No notes yet.</p>
+    @endif
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>

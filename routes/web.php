@@ -25,3 +25,4 @@ Route::get('/notes/delete/{id}', 'NoteController@delete')->name('notes.delete');
 Route::post('/notes/quickEdit', 'NoteController@quickEdit')->name('notes.quickEdit');
 Route::post('/notes/fullEdit', 'NoteController@fullEdit')->name('notes.fullEdit');
 Route::post('/notes/create', 'NoteController@store')->name('notes.store');
+Route::post('/search', 'SearchController@search')->name('search');
