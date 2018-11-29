@@ -2,6 +2,7 @@
 
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
     @if($notes->count())
         <div class="card-group">
             @foreach($notes as $note)
@@ -24,7 +25,8 @@
                                        data-id="{{ $note->id }}"
                                        data-color="{{ $note->color_id }}"
                                        data-title="{{ $note->title }}"
-                                       data-body="{{ $note->body }}">{{ __('Quick Edit') }}</button>
+                                       data-body="{{ $note->body }}"
+                                       data-share="{{ $note->share }}">{{ __('Quick Edit') }}</button>
                                <a href="{{  route('notes.update', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Full edit') }}</a>
                            </div>
                        </div>
@@ -72,7 +74,11 @@
                         </div>
                         <div class="form-group">
                             <label for="body" class="col-form-label">Body:</label>
-                            <textarea class="form-control" name="body" id="body"></textarea>
+                            <textarea class="form-control" name="body" id="body" rows="3"></textarea>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="share" name="share" value="0">
+                            <label class="form-check-label" for="share">Share this note with other</label>
                         </div>
                         <input type="hidden" name="id" id="id">
                     </div>
@@ -91,6 +97,12 @@
                 $("#body").val($(this).attr('data-body'));
                 $("#id").val($(this).attr('data-id'));
                 $("[name=color_id]").val($(this).attr('data-color'));
+
+                if ($(this).attr('data-share') == 1) {
+                    $("#share").prop('checked',true);
+                } else {
+                    $("#share").prop('checked',false);
+                };
             });
         });
     </script>

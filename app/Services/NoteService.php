@@ -63,8 +63,7 @@ class NoteService
      */
     public function update(array $data)
     {
-        $data['user_id'] = $this->auth->getUser()->id;
-        //dd($data);
+        $data = $this->fillArray($data);
         $this->note->ByField('id', $data['id'])->update($data);
     }
 
@@ -74,9 +73,21 @@ class NoteService
     public function store(array $data)
     {
         $note = $this->getNewNote();
-        $data['user_id'] = $this->auth->getUser()->id;
+        $data = $this->fillArray($data);
         $note->fill($data);
         $note->save();
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    private function fillArray(array $data)
+    {
+        $data['user_id'] = $this->auth->getUser()->id;
+        $data['share'] = array_key_exists('share', $data) ? 1 : 0;
+
+        return $data;
     }
 
     /**
