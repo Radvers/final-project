@@ -63,8 +63,15 @@ class NoteService
      */
     public function update(array $data)
     {
+        $src = $this->storeFile($data);
         $data = $this->fillArray($data);
-        $this->note->ByField('id', $data['id'])->update($data);
+        //$this->note->ByField('id', $data['id'])->update($data);
+        $note = $this->note->where('id',$data['id'])->first();
+        $note->fill($data);
+        $note->save();
+        if ($src !== 'empty') {
+            $note->file()->create(['src' => $src]);
+        }
     }
 
     /**
@@ -76,6 +83,18 @@ class NoteService
         $data = $this->fillArray($data);
         $note->fill($data);
         $note->save();
+    }
+
+    private function storeFile(array $data):string
+    {
+        if (array_key_exists('file', $data)) {
+            $file = $data['file'];
+            $path = storage_path('files') . '\\' . $data['id'] . '\\';
+            $name = time() . '_' . $file->getClientOriginalName();
+            $file->move($path, $name);
+            return $path . $name;
+        }
+        return 'empty';
     }
 
     /**

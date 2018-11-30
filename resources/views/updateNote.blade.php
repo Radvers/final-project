@@ -3,7 +3,7 @@
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-    <form action="{{ route('notes.fullEdit') }}"  method="post">
+    <form action="{{ route('notes.fullEdit') }}"  method="post" enctype="multipart/form-data">
         @csrf
         <div class="col-md-6">
             <div class="form-group">
@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label for="file">file input</label>
-                <input type="file" class="form-control-file" id="file">
+                <input type="file" name="file" class="form-control-file" id="file">
             </div>
             <div class="form-check">
                 <input class="form-check-input-inline" type="checkbox" id="share" name="share" value="0" {{ $note->share == 1 ? ' checked' : '' }}>

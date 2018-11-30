@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\URL;
 
 /**
@@ -39,6 +40,14 @@ class Note extends Model
     public function color()
     {
         return $this->belongsTo(Color::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function file()
+    {
+        return $this->hasOne(File::class);
     }
 
     /**
