@@ -38,10 +38,10 @@
                     Delete after 30 days
                 </label>
             </div>
-            <div class="form-group">
-                <label for="file">file input</label>
-                <input type="file" class="form-control-file" id="file">
-            </div>
+            {{--<div class="form-group">--}}
+                {{--<label for="file">file input</label>--}}
+                {{--<input type="file" class="form-control-file" id="file">--}}
+            {{--</div>--}}
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="share" name="share" value="0">
                 <label class="form-check-label" for="share">Share this note with other</label>

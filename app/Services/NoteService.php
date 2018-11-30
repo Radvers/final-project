@@ -23,14 +23,21 @@ class NoteService
     private $auth;
 
     /**
+     * @var FileService
+     */
+    private $fileService;
+
+    /**
      * NoteService constructor.
      * @param Note $note
      * @param AuthInterface $auth
+     * @param FileService $fileService
      */
-    public function __construct(Note $note, AuthInterface $auth)
+    public function __construct(Note $note, AuthInterface $auth, FileService $fileService)
     {
         $this->note = $note;
         $this->auth = $auth;
+        $this->fileService = $fileService;
     }
 
     /**
@@ -55,7 +62,11 @@ class NoteService
      */
     public function delete(int $id)
     {
-        $this->note->ByField('id', $id)->delete();
+        $note = $this->note->ByField('id', $id)->first();
+        if ($note->file){
+            $this->fileService->deleteFile($note->file->src);
+        }
+        $note->delete();
     }
 
     /**
@@ -63,8 +74,13 @@ class NoteService
      */
     public function update(array $data)
     {
+        $src = $this->fileService->store($data);
         $data = $this->fillArray($data);
-        $this->note->ByField('id', $data['id'])->update($data);
+        $note = $this->note->where('id',$data['id'])->first();
+        $note->fill($data)->save();
+        if ($src !== 'empty') {
+            $note->file()->create(['src' => $src]);
+        }
     }
 
     /**
@@ -77,6 +93,7 @@ class NoteService
         $note->fill($data);
         $note->save();
     }
+
 
     /**
      * @param array $data

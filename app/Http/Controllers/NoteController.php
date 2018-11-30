@@ -102,8 +102,10 @@ class NoteController extends Controller
             'body' => 'required|min:4',
             'color_id' => 'required|integer',
             'days_to_delete' => 'required|integer',
-            'share' => 'boolean'
+            'share' => 'boolean',
+            'file' => ''
         ]);
+        //dd($data);
         $this->noteService->update($data);
 
         return redirect('/notes');
