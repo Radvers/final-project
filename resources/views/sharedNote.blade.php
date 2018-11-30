@@ -9,6 +9,13 @@
                     <p class="card-text">{{ $note->body }}</p>
                 </div>
                 <div class="card-footer">
+                    @if($note->file)
+                        <a type="button"
+                           class="btn btn-secondary"
+                           href="{{ route('file.download', ['src' => $note->file->src]) }}">
+                            Download file
+                        </a>
+                    @endif
                     <p class="card-text">Created at {{ $note->created_at }} by {{ $note->user->name }}</p>
                 </div>
             </div>

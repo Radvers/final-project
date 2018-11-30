@@ -58,7 +58,7 @@ class Note extends Model
      */
     public function scopeByField(Builder $query, string $field, $value)
     {
-        return $this->where($field, $value)->with('color');
+        return $this->where($field, $value)->with(['color','file']);
     }
 
     /**

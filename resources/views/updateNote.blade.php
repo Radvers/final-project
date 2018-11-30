@@ -42,14 +42,22 @@
                     Delete after 30 days
                 </label>
             </div>
-            <div class="form-group">
-                <label for="file">file input</label>
-                <input type="file" name="file" class="form-control-file" id="file">
-            </div>
+            @if($note->file)
+                <a type="button"
+                   class="btn btn-primary"
+                   href="{{ route('file.delete', ['src' => $note->file->src, 'id' => $note->file->id]) }}">
+                    Delete file
+                </a>
+            @else
+                <div class="form-group">
+                    <label for="file">file input</label>
+                    <input type="file" name="file" class="form-control-file" id="file">
+                </div>
+            @endif
             <div class="form-check">
                 <input class="form-check-input-inline" type="checkbox" id="share" name="share" value="0" {{ $note->share == 1 ? ' checked' : '' }}>
                 <label class="form-check-label" for="share">Share this note with other</label>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sharedLink">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sharedLink" style="margin-left:1rem;">
                     Show link
                 </button>
             </div>
