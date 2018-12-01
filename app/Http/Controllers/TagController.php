@@ -26,6 +26,13 @@ class TagController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(int $id)
+    {
+        $tag = $this->tagService->index($id);
+        $notes = $tag->notes;
+        return view('note-list', ['notes' => $notes]);
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
@@ -38,5 +45,10 @@ class TagController extends Controller
         $this->tagService->store($data['name']);
 
         return redirect()->back();
+    }
+
+    public function cloud()
+    {
+        return $this->tagService->cloud();
     }
 }

@@ -9,8 +9,8 @@
                     <div class="row">
                         <div>
                             @foreach($note->tags as $tag)
-                                <a class="btn btn-secondary btn-sm"
-                                   href="{{ route('file.download', ['src' => $tag->name]) }}">
+                                <a class="badge badge-secondary"
+                                   {{--href="{{ route('tag.index', ['id' => $tag->id]) }}"--}}>
                                     {{ $tag->name }}
                                 </a>
                             @endforeach
@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-footer">
                     @if($note->file)
-                        <a class="btn btn-secondary"
+                        <a class="btn btn-secondary btn-sm"
                            href="{{ route('file.download', ['src' => $note->file->src]) }}">
                             Download file
                         </a>

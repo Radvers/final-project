@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class NoteTag
@@ -22,5 +23,13 @@ class NoteTag extends Model
      * @var string
      */
     protected $table = 'note_tag';
+
+    /**
+     * @return HasMany
+     */
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'id','note_id');
+    }
 
 }

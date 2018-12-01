@@ -42,6 +42,15 @@ class TagService
     }
 
     /**
+     * @param int $id
+     * @return mixed
+     */
+    public function index(int $id)
+    {
+        return $this->tag->where('id',$id)->with(['notes'])->get();
+    }
+
+    /**
      * @param array $data
      * @param int $idNote
      */
@@ -70,6 +79,59 @@ class TagService
         $tag->fill(['name' => $name])->save();
     }
 
+    /**
+     * @return array
+     */
+    public function cloud()
+    {
+        $cloud = $this->getItemsArray();
+
+        return $cloud;
+    }
+
+    /**
+     * @return array
+     */
+    private function getItemsArray():array
+    {
+        $tags = $this->tag->with('notes')->get();
+        $cloud = [];
+        foreach ($tags as $tag) {
+            $item['name'] = $tag->name;
+            $item['id'] = $tag->id;
+            $item['count'] = $tag->notes->count();
+            $cloud[] = $item;
+        }
+        $cloud = $this->addRankIntoArray($cloud);
+
+        return $cloud;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    private function addRankIntoArray(array $data)
+    {
+        array_multisort (array_column($data, 'count'), SORT_DESC, $data);
+        $count = count($data);
+        $rank = 1;
+        $prevCount = $data[0]['count'];
+        $data[0]['rank'] = $rank;
+        for ($i = 1; $i < $count; $i++) {
+            if ($data[$i]['count'] < $prevCount && $rank < 6) {
+                $rank++;
+            }
+            $data[$i]['rank'] = $rank;
+            $prevCount = $data[$i]['count'];
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return NoteTag
+     */
     private function getNewNoteTag()
     {
         return new NoteTag();

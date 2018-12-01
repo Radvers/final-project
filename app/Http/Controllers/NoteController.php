@@ -41,8 +41,9 @@ class NoteController extends Controller
     public function index()
     {
         $notes = $this->noteService->getAllUserNotes();
+        $cloudTags = $this->tagService->cloud();
 
-        return view('note-list', ['notes' => $notes]);
+        return view('note-list', ['notes' => $notes, 'cloudTags' => $cloudTags]);
     }
 
     /**
