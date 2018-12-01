@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\NoteService;
+use App\Services\TagService;
 use Illuminate\Http\Request;
 
 /**
@@ -16,14 +17,20 @@ class NoteController extends Controller
      */
     private $noteService;
 
+    /**
+     * @var TagService
+     */
+    private $tagService;
 
     /**
      * NoteController constructor.
      * @param NoteService $noteService
+     * @param TagService $tagService
      */
-    public function __construct(NoteService $noteService)
+    public function __construct(NoteService $noteService, TagService $tagService)
     {
         $this->noteService = $noteService;
+        $this->tagService = $tagService;
         $this->middleware('auth');
     }
 
@@ -103,10 +110,11 @@ class NoteController extends Controller
             'color_id' => 'required|integer',
             'days_to_delete' => 'required|integer',
             'share' => 'boolean',
-            'file' => ''
+            'file' => '',
+            'tags' => ''
         ]);
-        //dd($data);
         $this->noteService->update($data);
+        $this->tagService->updateTags($data['tags'],$data['id']);
 
         return redirect('/notes');
     }

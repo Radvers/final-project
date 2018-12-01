@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\Relations\BelongsTo;
+use \Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\URL;
 
@@ -51,6 +52,14 @@ class Note extends Model
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    /**
      * @param Builder $query
      * @param string $field
      * @param $value
@@ -58,7 +67,7 @@ class Note extends Model
      */
     public function scopeByField(Builder $query, string $field, $value)
     {
-        return $this->where($field, $value)->with(['color','file']);
+        return $this->where($field, $value)->with(['color','file','tags']);
     }
 
     /**

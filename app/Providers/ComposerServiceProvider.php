@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Composers\ColorsComposer;
+use App\Composers\TagsComposer;
 use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
@@ -19,6 +20,11 @@ class ComposerServiceProvider extends ServiceProvider
             'updateNote',
             'note-list'
         ], ColorsComposer::class);
+
+        view()->composer([
+            'createNote',
+            'updateNote'
+        ], TagsComposer::class);
     }
 
     /**
