@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(ColorSeeder::class);
+        $this->call(TagSeeder::class);
         $this->call(NoteSeeder::class);
+        $this->call(NoteTagSeeder::class);
     }
 }
