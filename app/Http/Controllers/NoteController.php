@@ -46,6 +46,17 @@ class NoteController extends Controller
     }
 
     /**
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(int $id)
+    {
+        $note = $this->noteService->getById($id);
+
+        return view('note', ['note' => $note]);
+    }
+
+    /**
      * page with create form
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

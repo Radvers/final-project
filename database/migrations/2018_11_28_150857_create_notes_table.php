@@ -21,7 +21,7 @@ class CreateNotesTable extends Migration
             $table->unsignedInteger('color_id');
             $table->integer('days_to_delete');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('color_id')->references('id')->on('colors');
         });
     }

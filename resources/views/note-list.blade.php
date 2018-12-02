@@ -25,13 +25,24 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <p class="card-text">{{ $note->body }}</p>
+                                        <p class="card-text">{{ $note->formattedBody }}</p>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button type="button"
+                                                    class="btn btn-secondary btn-sm dropdown-toggle"
+                                                    data-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false">
                                                {{ __('Actions') }}
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{  route('notes.delete', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Delete') }}</a>
+                                                <a href="{{  route('notes.delete', ['id '=> $note->id]) }}"
+                                                   class="dropdown-item btn">
+                                                    {{ __('Delete') }}
+                                                </a>
+                                                <a href="{{  route('notes.show', ['id '=> $note->id]) }}"
+                                                   class="dropdown-item btn">
+                                                    {{ __('Show note') }}
+                                                </a>
                                                 <button type="button"
                                                        class="dropdown-item update-note"
                                                        data-toggle="modal"

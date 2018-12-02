@@ -77,4 +77,13 @@ class Note extends Model
     {
         return URL::to('/') . '/share/' . $this->id;
     }
+
+    /**
+     * preview
+     * @return string
+     */
+    public function getFormattedBodyAttribute()
+    {
+        return strlen($this->body) > 50 ? substr($this->body, 1, 50) . '...' : $this->body;
+    }
 }

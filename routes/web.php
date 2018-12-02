@@ -21,6 +21,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/notes', 'NoteController@index')->name('notes.index');
 Route::get('/notes/create', 'NoteController@create')->name('notes.create');
+Route::get('/notes/show/{id}', 'NoteController@show')->name('notes.show');
 Route::get('/notes/update/{id}', 'NoteController@update')->name('notes.update');
 Route::get('/notes/delete/{id}', 'NoteController@delete')->name('notes.delete');
 Route::get('/share/{id}', 'ShareController@index')->name('share.index');
