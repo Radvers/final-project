@@ -10,7 +10,7 @@
                         <div>
                             @foreach ($note->tags as $tag)
                                 <a class="badge badge-secondary"
-                                   {{--href="{{ route('tag.index', ['id' => $tag->id]) }}"--}}>
+                                   href="{{ route('tag.index', ['id' => $tag->id]) }}">
                                     {{ $tag->name }}
                                 </a>
                             @endforeach
@@ -27,7 +27,7 @@
                             Download file
                         </a>
                     @endif
-                    <p class="card-text">Created at {{ $note->created_at }} by {{ $note->user->name }}</p>
+                    <p class="card-text">Created at {{ $note->created_at }} </p>
                 </div>
             </div>
         </div>

@@ -9,9 +9,9 @@
             <div class="form-group">
                 <label for="tags">{{ __('Tags') }}</label>
                 <select multiple class="form-control" id="tags" name="tags[]">
-                    @foreach($tags as $tag)
+                    @foreach ($tags as $tag)
                         <option value="{{ $tag->id }}"
-                                @foreach($note->tags as $itemTag)
+                                @foreach ($note->tags as $itemTag)
                                     @if($tag->id == $itemTag->id)
                                         selected
                                     @endif
@@ -28,7 +28,7 @@
             <div class="form-group">
                 <label for="color_id">{{ __('Color') }}</label>
                 <select class="form-control" name="color_id" id="color_id">
-                    @foreach($colors as $color)
+                    @foreach ($colors as $color)
                         <option value="{{ $color->id }}" {{ $note->color_id == $color->id ? 'selected' : '' }}>
                             {{ $color->name }}
                         </option>
@@ -44,24 +44,39 @@
                 <textarea class="form-control" id="body" name="body" rows="4">{{ $note->body }}</textarea>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="days_to_delete" id="daysToDelete1" value="1" {{ $note->days_to_delete == 1 ? 'checked' : '' }}>
+                <input class="form-check-input"
+                       type="radio"
+                       name="days_to_delete"
+                       id="daysToDelete1"
+                       value="1"
+                       {{ $note->days_to_delete == 1 ? 'checked' : '' }}>
                 <label class="form-check-label" for="daysToDelete1">
                     Delete after 1 day
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="days_to_delete" id="daysToDelete2" value="15" {{ $note->days_to_delete == 15 ? 'checked' : '' }}>
+                <input class="form-check-input"
+                       type="radio"
+                       name="days_to_delete"
+                       id="daysToDelete2"
+                       value="15"
+                       {{ $note->days_to_delete == 15 ? 'checked' : '' }}>
                 <label class="form-check-label" for="daysToDelete2">
                     Delete after 15 days
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="days_to_delete" id="daysToDelete3" value="30" {{ $note->days_to_delete == 30 ? 'checked' : '' }}>
+                <input class="form-check-input"
+                       type="radio"
+                       name="days_to_delete"
+                       id="daysToDelete3"
+                       value="30"
+                       {{ $note->days_to_delete == 30 ? 'checked' : '' }}>
                 <label class="form-check-label" for="daysToDelete3">
                     Delete after 30 days
                 </label>
             </div>
-            @if($note->file)
+            @if ($note->file)
                 <a type="button"
                    class="btn btn-primary"
                    href="{{ route('file.delete', ['src' => $note->file->src, 'id' => $note->file->id]) }}">
@@ -74,7 +89,12 @@
                 </div>
             @endif
             <div class="form-check">
-                <input class="form-check-input-inline" type="checkbox" id="share" name="share" value="0" {{ $note->share == 1 ? ' checked' : '' }}>
+                <input class="form-check-input-inline"
+                       type="checkbox"
+                       id="share"
+                       name="share"
+                       value="0"
+                       {{ $note->share == 1 ? ' checked' : '' }}>
                 <label class="form-check-label" for="share">Share this note with other</label>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sharedLink" style="margin-left:1rem;">
                     Show link
@@ -131,5 +151,4 @@
             </div>
         </div>
     </div>
-
 @endsection

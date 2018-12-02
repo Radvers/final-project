@@ -18,7 +18,7 @@ class CreateNoteTagTable extends Migration
             $table->unsignedInteger('note_id');
             $table->unsignedInteger('tag_id');
             $table->timestamps();
-            $table->foreign('note_id')->references('id')->on('notes');
+            $table->foreign('note_id')->references('id')->on('notes')->onDelete('cascade');
             $table->foreign('tag_id')->references('id')->on('tags');
         });
     }

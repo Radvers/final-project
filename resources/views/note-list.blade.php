@@ -3,7 +3,7 @@
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-    @if($notes->count())
+    @if ($notes->count())
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-10 col-sm-10">
@@ -15,7 +15,7 @@
                                         {{ $note->title }}
                                         <div class="row">
                                             <div>
-                                                @foreach($note->tags as $tag)
+                                                @foreach ($note->tags as $tag)
                                                     <a class="badge badge-secondary"
                                                        href="{{ route('tag.index', ['id' => $tag->id]) }}">
                                                         {{ $tag->name }}
@@ -25,13 +25,24 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <p class="card-text">{{ $note->body }}</p>
+                                        <p class="card-text">{{ $note->formattedBody }}</p>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button type="button"
+                                                    class="btn btn-secondary btn-sm dropdown-toggle"
+                                                    data-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false">
                                                {{ __('Actions') }}
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{  route('notes.delete', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Delete') }}</a>
+                                                <a href="{{  route('notes.delete', ['id '=> $note->id]) }}"
+                                                   class="dropdown-item btn">
+                                                    {{ __('Delete') }}
+                                                </a>
+                                                <a href="{{  route('notes.show', ['id '=> $note->id]) }}"
+                                                   class="dropdown-item btn">
+                                                    {{ __('Show note') }}
+                                                </a>
                                                 <button type="button"
                                                        class="dropdown-item update-note"
                                                        data-toggle="modal"
@@ -59,12 +70,12 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2">
-                    @foreach($cloudTags as $tag)
+                    <p>Tag popularity:</p>
+                    @foreach ($cloudTags as $tag)
                         <h{{ $tag['rank'] }}>
                             <a href="{{ route('tag.index', ['id' => $tag['id']]) }}">
                                 <span class="badge badge-info">{{ $tag['name'] }}</span>
                             </a>
-
                         </h{{ $tag['rank'] }}>
                     @endforeach
                 </div>
@@ -72,15 +83,6 @@
         </div>
     @else
         <p class="alert alert-warning">No notes yet.</p>
-    @endif
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
     @endif
 
     <div class="modal fade" id="updateNote" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -102,7 +104,7 @@
                         <div class="form-group">
                             <label for="color">Example select</label>
                             <select class="form-control" id="color" name="color_id">
-                                @foreach($colors as $color)
+                                @foreach ($colors as $color)
                                     <option value="{{ $color->id }}">{{ $color->name }}</option>
                                 @endforeach
                             </select>

@@ -29,7 +29,7 @@ class NoteTag extends Model
      */
     public function notes()
     {
-        return $this->hasMany(Note::class, 'id','note_id');
+        return $this->hasMany(Note::class, 'id', 'note_id');
     }
 
 }

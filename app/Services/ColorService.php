@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 use App\Models\Color;
 
 /**
@@ -25,6 +24,9 @@ class ColorService
         $this->color = $color;
     }
 
+    /**
+     * @return mixed
+     */
     public function all()
     {
         return $this->color->get();

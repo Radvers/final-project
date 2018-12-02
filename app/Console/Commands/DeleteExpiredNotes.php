@@ -38,7 +38,7 @@ class DeleteExpiredNotes extends Command
 
     /**
      * Execute the console command.
-     *p
+     *
      * @return mixed
      */
     public function handle()

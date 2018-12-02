@@ -29,6 +29,6 @@ class ShareController extends Controller
     {
         $note = $this->shareService->getSharedNote($id);
 
-        return view('sharedNote',['note' => $note]);
+        return view('sharedNote', ['note' => $note]);
     }
 }

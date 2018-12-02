@@ -29,8 +29,7 @@ class CommandService
      */
     public function deleteExpired()
     {
-
-        $this->note->whereRaw('to_days(now()) - to_days(created_at) >= days_to_delete')->delete();
+        $this->note->whereRaw('created_at < DATE_SUB(now(), INTERVAL days_to_delete DAY)')->delete();
     }
 
 }
