@@ -115,7 +115,7 @@ class NoteController extends Controller
             'tags' => ''
         ]);
         $this->noteService->update($data);
-        $this->tagService->updateTags($data['tags'],$data['id']);
+        $this->tagService->updateTags($data['tags'], $data['id']);
 
         return redirect('/notes');
     }

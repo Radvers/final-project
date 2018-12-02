@@ -21,7 +21,7 @@ class FileService
      */
     public function __construct(File $file)
     {
-        $this->file =$file;
+        $this->file = $file;
     }
 
     /**
@@ -36,8 +36,10 @@ class FileService
             $path = storage_path('files') . '\\';
             $name = time() . '_' . $file->getClientOriginalName();
             $file->move($path, $name);
+
             return $path . $name;
         }
+
         return 'empty';
     }
 
@@ -54,7 +56,7 @@ class FileService
      */
     public function deleteModel(int $id)
     {
-        $this->file->where('id',$id)->delete();
+        $this->file->where('id', $id)->delete();
     }
 
     /**

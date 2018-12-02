@@ -30,6 +30,7 @@ class TagController extends Controller
     {
         $notes = $this->tagService->index($id);
         $cloudTags = $this->tagService->cloud();
+
         return view('note-list', ['notes' => $notes, 'cloudTags' => $cloudTags]);
     }
 
@@ -47,6 +48,9 @@ class TagController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * @return array
+     */
     public function cloud()
     {
         return $this->tagService->cloud();

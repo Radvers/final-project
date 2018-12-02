@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 use App\Models\Note;
 
 /**
@@ -25,10 +24,12 @@ class ShareService
         $this->note = $note;
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function getSharedNote(int $id)
     {
-        return $this->note->where('id', $id)->where('share',true)->with(['color','user'])->first();
+        return $this->note->where('id', $id)->where('share', true)->with(['color', 'user'])->first();
     }
-
-
 }

@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
-
 use App\Models\Note;
 use App\Services\Auth\AuthInterface;
 
+/**
+ * Class SearchService
+ * @package App\Services
+ */
 class SearchService
 {
     /**
@@ -36,12 +39,13 @@ class SearchService
     public function search(string $search)
     {
         $user_id = $this->auth->getUser()->id;
-        $notes =  $this->note
-            ->where('user_id',$user_id)
-            ->where(function($query) use($search) {
-                $query->where('title','like','%' . $search . '%')
-                    ->orWhere('body','like','%' . $search . '%');
+        $notes = $this->note
+            ->where('user_id', $user_id)
+            ->where(function($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('body', 'like', '%' . $search . '%');
             })->get();
+
         return $notes;
     }
 }

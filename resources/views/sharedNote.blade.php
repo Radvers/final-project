@@ -8,7 +8,7 @@
                     {{ $note->title }}
                     <div class="row">
                         <div>
-                            @foreach($note->tags as $tag)
+                            @foreach ($note->tags as $tag)
                                 <a class="badge badge-secondary"
                                    {{--href="{{ route('tag.index', ['id' => $tag->id]) }}"--}}>
                                     {{ $tag->name }}
@@ -21,7 +21,7 @@
                     <p class="card-text">{{ $note->body }}</p>
                 </div>
                 <div class="card-footer">
-                    @if($note->file)
+                    @if ($note->file)
                         <a class="btn btn-secondary btn-sm"
                            href="{{ route('file.download', ['src' => $note->file->src]) }}">
                             Download file

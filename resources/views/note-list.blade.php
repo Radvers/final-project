@@ -3,7 +3,7 @@
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-    @if($notes->count())
+    @if ($notes->count())
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-10 col-sm-10">
@@ -15,7 +15,7 @@
                                         {{ $note->title }}
                                         <div class="row">
                                             <div>
-                                                @foreach($note->tags as $tag)
+                                                @foreach ($note->tags as $tag)
                                                     <a class="badge badge-secondary"
                                                        href="{{ route('tag.index', ['id' => $tag->id]) }}">
                                                         {{ $tag->name }}
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2">
-                    @foreach($cloudTags as $tag)
+                    @foreach ($cloudTags as $tag)
                         <h{{ $tag['rank'] }}>
                             <a href="{{ route('tag.index', ['id' => $tag['id']]) }}">
                                 <span class="badge badge-info">{{ $tag['name'] }}</span>
@@ -102,7 +102,7 @@
                         <div class="form-group">
                             <label for="color">Example select</label>
                             <select class="form-control" id="color" name="color_id">
-                                @foreach($colors as $color)
+                                @foreach ($colors as $color)
                                     <option value="{{ $color->id }}">{{ $color->name }}</option>
                                 @endforeach
                             </select>

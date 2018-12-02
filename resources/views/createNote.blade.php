@@ -7,7 +7,7 @@
             <div class="form-group">
                 <label for="color_id">{{ __('Color') }}</label>
                 <select class="form-control" name="color_id" id="color_id">
-                    @foreach($colors as $color)
+                    @foreach ($colors as $color)
                         <option value="{{ $color->id }}">{{ $color->name }}</option>
                     @endforeach
                 </select>

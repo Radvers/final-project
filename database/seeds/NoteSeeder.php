@@ -25,7 +25,7 @@ class NoteSeeder extends Seeder
                 'title' => 'another New note',
                 'body' => 'Another note from one user',
                 'color_id' => 2,
-                'days_to_delete' => 2,
+                'days_to_delete' => 1,
                 'created_at' => date('Y-m-d h:i:s', time())
             ]
         ]);

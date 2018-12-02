@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 use App\Models\Note;
 use App\Services\Auth\AuthInterface;
 
@@ -63,7 +62,7 @@ class NoteService
     public function delete(int $id)
     {
         $note = $this->note->ByField('id', $id)->first();
-        if ($note->file){
+        if ($note->file) {
             $this->fileService->deleteFile($note->file->src);
         }
         $note->delete();
@@ -90,8 +89,7 @@ class NoteService
     {
         $note = $this->getNewNote();
         $data = $this->fillArray($data);
-        $note->fill($data);
-        $note->save();
+        $note->fill($data)->save();
     }
 
     /**
@@ -113,5 +111,4 @@ class NoteService
     {
         return New Note();
     }
-
 }

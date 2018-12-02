@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 use App\Models\NoteTag;
 use App\Models\Tag;
 
@@ -49,6 +48,7 @@ class TagService
     {
         $tag = $this->tag->where('id', $id)->with('notes')->first();
         $notes = $tag->notes;
+
         return $notes;
     }
 
@@ -58,10 +58,10 @@ class TagService
      */
     public function updateTags(array $data, int $idNote)
     {
-        $oldTags = $this->noteTag->where('note_id',$idNote)->get();
+        $oldTags = $this->noteTag->where('note_id', $idNote)->get();
         $oldTagArray = [];
         foreach ($oldTags as $oldTag) {
-            in_array($oldTag->tag_id,$data)
+            in_array($oldTag->tag_id, $data)
                 ? $oldTagArray[] = $oldTag->tag_id
                 : $oldTag->delete();
         }
@@ -115,7 +115,7 @@ class TagService
      */
     private function addRankIntoArray(array $data)
     {
-        array_multisort (array_column($data, 'count'), SORT_DESC, $data);
+        array_multisort(array_column($data, 'count'), SORT_DESC, $data);
         $count = count($data);
         $rank = 1;
         $prevCount = $data[0]['count'];

@@ -31,9 +31,13 @@ class FileController extends Controller
      */
     public function delete(Request $request)
     {
-        $src = $request->only('src','id');
-        $this->fileService->deleteFile($src['src']);
-        $this->fileService->deleteModel($src['id']);
+        $data = $request->validate([
+            'src' => 'required',
+            'id' => 'required'
+        ]);
+        $this->fileService->deleteFile($data['src']);
+        $this->fileService->deleteModel($data['id']);
+
         return redirect()->back();
     }
 
@@ -43,7 +47,10 @@ class FileController extends Controller
      */
     public function download(Request $request)
     {
-        $src = $request->only('src');
-        return $this->fileService->read($src['src']);
+        $data = $request->validate([
+            'src' => 'required'
+        ]);
+
+        return $this->fileService->read($data['src']);
     }
 }
