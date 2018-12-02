@@ -125,7 +125,7 @@ class NoteController extends Controller
             'tags' => ''
         ]);
         $this->noteService->update($data);
-        $this->tagService->updateTags($data['tags'], $data['id']);
+        $this->tagService->updateTags($data);
 
         return redirect('/notes');
     }
@@ -141,9 +141,13 @@ class NoteController extends Controller
             'body' => 'required|min:4',
             'color_id' => 'required|integer',
             'days_to_delete' => 'required|integer',
-            'share' => 'boolean'
+            'share' => 'boolean',
+            'file' => 'max:4096',
+            'tags' => ''
         ]);
-        $this->noteService->store($data);
+        $id = $this->noteService->store($data);
+        $data['id'] = $id;
+        $this->tagService->updateTags($data);
 
         return redirect('/notes');
     }

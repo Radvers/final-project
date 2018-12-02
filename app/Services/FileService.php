@@ -29,18 +29,13 @@ class FileService
      * @param array $data
      * @return string
      */
-    public function store(array $data):string
+    public function store($file):string
     {
-        if (array_key_exists('file', $data)) {
-            $file = $data['file'];
-            $path = storage_path('files') . '\\';
-            $name = time() . '_' . $file->getClientOriginalName();
-            $file->move($path, $name);
+        $path = storage_path('files') . '\\';
+        $name = time() . '_' . $file->getClientOriginalName();
+        $file->move($path, $name);
 
-            return $path . $name;
-        }
-
-        return 'empty';
+        return $path . $name;
     }
 
     /**

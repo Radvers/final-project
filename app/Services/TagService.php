@@ -56,17 +56,29 @@ class TagService
      * @param array $data
      * @param int $idNote
      */
-    public function updateTags(array $data, int $idNote)
+    public function updateTags(array $data)
     {
+        $idNote = $data['id'];
+        $newTags = array_key_exists('tags', $data) ? $data['tags'] : [];
         $oldTags = $this->noteTag->where('note_id', $idNote)->get();
         $oldTagArray = [];
+
         foreach ($oldTags as $oldTag) {
-            in_array($oldTag->tag_id, $data)
+            in_array($oldTag->tag_id, $newTags)
                 ? $oldTagArray[] = $oldTag->tag_id
                 : $oldTag->delete();
         }
-        $diff = array_diff($data, $oldTagArray);
-        foreach ($diff as $idTag) {
+        $diff = array_diff($newTags, $oldTagArray);
+        $this->saveNoteTag($diff, $idNote);
+    }
+
+    /**
+     * @param array $idTags
+     * @param int $idNote
+     */
+    private function saveNoteTag(array $idTags, int $idNote)
+    {
+        foreach ($idTags as $idTag) {
             $noteTag = $this->getNewNoteTag();
             $noteTag->fill(['note_id' => $idNote, 'tag_id' => $idTag])->save();
         }
