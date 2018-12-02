@@ -28,9 +28,9 @@ class TagController extends Controller
 
     public function index(int $id)
     {
-        $tag = $this->tagService->index($id);
-        $notes = $tag->notes;
-        return view('note-list', ['notes' => $notes]);
+        $notes = $this->tagService->index($id);
+        $cloudTags = $this->tagService->cloud();
+        return view('note-list', ['notes' => $notes, 'cloudTags' => $cloudTags]);
     }
 
     /**

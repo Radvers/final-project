@@ -47,7 +47,9 @@ class TagService
      */
     public function index(int $id)
     {
-        return $this->tag->where('id',$id)->with(['notes'])->get();
+        $tag = $this->tag->where('id', $id)->with('notes')->first();
+        $notes = $tag->notes;
+        return $notes;
     }
 
     /**

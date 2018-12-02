@@ -17,7 +17,7 @@
                                             <div>
                                                 @foreach($note->tags as $tag)
                                                     <a class="badge badge-secondary"
-                                                       {{--href="{{ route('tag.index', ['id' => $tag->id]) }}"--}}>
+                                                       href="{{ route('tag.index', ['id' => $tag->id]) }}">
                                                         {{ $tag->name }}
                                                     </a>
                                                 @endforeach
@@ -61,7 +61,7 @@
                 <div class="col-md-2 col-sm-2">
                     @foreach($cloudTags as $tag)
                         <h{{ $tag['rank'] }}>
-                            <a {{--href="{{ route('tag.index', ['id' => $tag['id']]) }}"--}}>
+                            <a href="{{ route('tag.index', ['id' => $tag['id']]) }}">
                                 <span class="badge badge-info">{{ $tag['name'] }}</span>
                             </a>
 
