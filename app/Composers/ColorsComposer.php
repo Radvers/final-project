@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Vitaliy
- * Date: 29.11.2018
- * Time: 15:16
- */
 
 namespace App\Composers;
-
 
 use App\Services\ColorService;
 use Illuminate\View\View;

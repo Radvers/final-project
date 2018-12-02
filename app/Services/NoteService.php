@@ -94,7 +94,6 @@ class NoteService
         $note->save();
     }
 
-
     /**
      * @param array $data
      * @return array

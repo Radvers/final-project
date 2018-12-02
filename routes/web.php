@@ -25,9 +25,11 @@ Route::get('/notes/delete/{id}', 'NoteController@delete')->name('notes.delete');
 Route::get('/share/{id}', 'ShareController@index')->name('share.index');
 Route::get('/files/delete', 'FileController@delete')->name('file.delete');
 Route::get('/files/download', 'FileController@download')->name('file.download');
+Route::get('/tag/index/{id}', 'TagController@index')->name('tag.index');
 
 Route::post('/notes/quickEdit', 'NoteController@quickEdit')->name('notes.quickEdit');
 Route::post('/notes/fullEdit', 'NoteController@fullEdit')->name('notes.fullEdit');
 Route::post('/notes/create', 'NoteController@store')->name('notes.store');
 Route::post('/search', 'SearchController@search')->name('search');
+Route::post('/tag/store', 'TagController@store')->name('tag.store');
 

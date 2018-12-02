@@ -4,44 +4,71 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     @if($notes->count())
-        <div class="card-group">
-            @foreach($notes as $note)
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="card {{ $note->color->class }} mb-6" style="max-width: 22rem; margin-bottom: 1rem;">
-                        <div class="card-header">{{ $note->title }}</div>
-                        <div class="card-body">
-                            {{--<h5 class="card-title">Tags</h5>--}}
-                            <p class="card-text">{{ $note->body }}</p>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   more
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="{{  route('notes.delete', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Delete') }}</a>
-                                    <button type="button"
-                                           class="dropdown-item update-note"
-                                           data-toggle="modal"
-                                           data-target="#updateNote"
-                                           data-id="{{ $note->id }}"
-                                           data-color="{{ $note->color_id }}"
-                                           data-title="{{ $note->title }}"
-                                           data-body="{{ $note->body }}"
-                                           data-share="{{ $note->share }}">{{ __('Quick Edit') }}</button>
-                                    <a href="{{  route('notes.update', ['id' => $note->id]) }}" class="dropdown-item btn">{{ __('Full edit') }}</a>
-                                    @if($note->file)
-                                        <a href="{{
-                                            route('file.delete', ['src' => $note->file->src, 'id' => $note->file->id])
-                                        }}" class="dropdown-item btn">{{ __('Delete file') }}</a>
-                                        <a href="{{
-                                            route('file.download', ['src' => $note->file->src])
-                                        }}" class="dropdown-item btn">{{ __('Download file') }}</a>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                   </div>
-               </div>
-            @endforeach
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10 col-sm-10">
+                    <div class="card-group">
+                        @foreach($notes as $note)
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="card {{ $note->color->class }} mb-6" style="max-width: 22rem; margin-bottom: 1rem;">
+                                    <div class="card-header">
+                                        {{ $note->title }}
+                                        <div class="row">
+                                            <div>
+                                                @foreach($note->tags as $tag)
+                                                    <a class="badge badge-secondary"
+                                                       href="{{ route('tag.index', ['id' => $tag->id]) }}">
+                                                        {{ $tag->name }}
+                                                    </a>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">{{ $note->body }}</p>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                               {{ __('Actions') }}
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="{{  route('notes.delete', ['id '=> $note->id]) }}" class="dropdown-item btn">{{ __('Delete') }}</a>
+                                                <button type="button"
+                                                       class="dropdown-item update-note"
+                                                       data-toggle="modal"
+                                                       data-target="#updateNote"
+                                                       data-id="{{ $note->id }}"
+                                                       data-color="{{ $note->color_id }}"
+                                                       data-title="{{ $note->title }}"
+                                                       data-body="{{ $note->body }}"
+                                                       data-share="{{ $note->share }}">{{ __('Quick Edit') }}</button>
+                                                <a href="{{  route('notes.update', ['id' => $note->id]) }}" class="dropdown-item btn">{{ __('Full edit') }}</a>
+                                                @if($note->file)
+                                                    <a href="{{
+                                                        route('file.delete', ['src' => $note->file->src, 'id' => $note->file->id])
+                                                    }}" class="dropdown-item btn">{{ __('Delete file') }}</a>
+                                                    <a href="{{
+                                                        route('file.download', ['src' => $note->file->src])
+                                                    }}" class="dropdown-item btn">{{ __('Download file') }}</a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                               </div>
+                           </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2">
+                    @foreach($cloudTags as $tag)
+                        <h{{ $tag['rank'] }}>
+                            <a href="{{ route('tag.index', ['id' => $tag['id']]) }}">
+                                <span class="badge badge-info">{{ $tag['name'] }}</span>
+                            </a>
+
+                        </h{{ $tag['rank'] }}>
+                    @endforeach
+                </div>
+            </div>
         </div>
     @else
         <p class="alert alert-warning">No notes yet.</p>

@@ -7,6 +7,25 @@
         @csrf
         <div class="col-md-6">
             <div class="form-group">
+                <label for="tags">{{ __('Tags') }}</label>
+                <select multiple class="form-control" id="tags" name="tags[]">
+                    @foreach($tags as $tag)
+                        <option value="{{ $tag->id }}"
+                                @foreach($note->tags as $itemTag)
+                                    @if($tag->id == $itemTag->id)
+                                        selected
+                                    @endif
+                                @endforeach
+                        >
+                            {{ $tag->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTag">
+                    Add new tag
+                </button>
+            </div>
+            <div class="form-group">
                 <label for="color_id">{{ __('Color') }}</label>
                 <select class="form-control" name="color_id" id="color_id">
                     @foreach($colors as $color)
@@ -66,7 +85,7 @@
         </div>
     </form>
 
-    <!-- Modal -->
+    <!-- Modal Link -->
     <div class="modal fade" id="sharedLink" tabindex="-1" role="dialog" aria-labelledby="sharedLink" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -82,6 +101,33 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add tag -->
+    <div class="modal fade" id="addTag" tabindex="-1" role="dialog" aria-labelledby="sharedLink" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sharedLink">Create New Tag</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('tag.store') }}"  method="post">
+                    <div class="modal-body">
+                        @csrf
+                        <div class="form-group">
+                            <label for="tagName">{{ __('Name') }}</label>
+                            <input type="text" class="form-control" name="name" id="tagName">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
