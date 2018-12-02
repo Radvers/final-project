@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('note-list');
+    $notes = collect();
+    return view('note-list', ['notes' => $notes]);
 });
 
 Auth::routes();

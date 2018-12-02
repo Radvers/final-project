@@ -59,12 +59,12 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2">
+                    <p>Tag popularity:</p>
                     @foreach ($cloudTags as $tag)
                         <h{{ $tag['rank'] }}>
                             <a href="{{ route('tag.index', ['id' => $tag['id']]) }}">
                                 <span class="badge badge-info">{{ $tag['name'] }}</span>
                             </a>
-
                         </h{{ $tag['rank'] }}>
                     @endforeach
                 </div>
