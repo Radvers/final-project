@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Composers\CloudTagsComposer;
 use App\Composers\ColorsComposer;
 use App\Composers\TagsComposer;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +26,10 @@ class ComposerServiceProvider extends ServiceProvider
             'createNote',
             'updateNote'
         ], TagsComposer::class);
+
+        view()->composer([
+            'note-list'
+        ], CloudTagsComposer::class);
     }
 
     /**

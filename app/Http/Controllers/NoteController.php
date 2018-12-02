@@ -41,9 +41,8 @@ class NoteController extends Controller
     public function index()
     {
         $notes = $this->noteService->getAllUserNotes();
-        $cloudTags = $this->tagService->cloud();
 
-        return view('note-list', ['notes' => $notes, 'cloudTags' => $cloudTags]);
+        return view('note-list', ['notes' => $notes]);
     }
 
     /**
@@ -111,7 +110,7 @@ class NoteController extends Controller
             'color_id' => 'required|integer',
             'days_to_delete' => 'required|integer',
             'share' => 'boolean',
-            'file' => '',
+            'file' => 'max:4096',
             'tags' => ''
         ]);
         $this->noteService->update($data);
