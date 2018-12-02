@@ -32,6 +32,6 @@ Route::get('/tag/index/{id}', 'TagController@index')->name('tag.index');
 Route::post('/notes/quickEdit', 'NoteController@quickEdit')->name('notes.quickEdit');
 Route::post('/notes/fullEdit', 'NoteController@fullEdit')->name('notes.fullEdit');
 Route::post('/notes/create', 'NoteController@store')->name('notes.store');
-Route::post('/search', 'SearchController@search')->name('search');
+Route::post('/notes', 'SearchController@search')->name('search');
 Route::post('/tag/store', 'TagController@store')->name('tag.store');
 
